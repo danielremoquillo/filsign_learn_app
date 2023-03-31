@@ -1,5 +1,6 @@
-import 'package:filsign_learn_app/screens/home_screen.dart';
-import 'package:filsign_learn_app/screens/preview_screen.dart';
+import 'package:filsign_learn_app/screens/auth/preview_screen.dart';
+import 'package:filsign_learn_app/screens/user/home_screen.dart';
+import 'package:filsign_learn_app/screens/user/new_user/get_username_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class PageService extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshots) {
             if (snapshots.hasData) {
-              return HomeScreen();
+              return GetUsernameScreen();
             } else {
               return PreviewScreen();
             }

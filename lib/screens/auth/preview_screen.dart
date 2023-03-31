@@ -1,5 +1,5 @@
-import 'package:filsign_learn_app/screens/sign_in_screen.dart';
-import 'package:filsign_learn_app/screens/sign_up_screen.dart';
+import 'package:filsign_learn_app/screens/auth/sign_in_screen.dart';
+import 'package:filsign_learn_app/screens/auth/sign_up_screen.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 

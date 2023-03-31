@@ -1,9 +1,10 @@
-import 'package:filsign_learn_app/screens/home_screen.dart';
+import 'package:filsign_learn_app/screens/user/home_screen.dart';
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -20,14 +21,43 @@ class _SignInScreenState extends State<SignInScreen> {
   late String _password;
   bool _showPassword = false;
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
+  void _submitForm() async {
+    if (!_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      _auth.signInWithEmailAndPassword(_email, _password).then((value) =>
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return PageService();
-          })));
+
+      // Sign in function
+      _auth
+          .signInWithEmailAndPassword('test@test.com', '123456')
+          .then((value) => Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 500),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return PageService();
+                  },
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    var begin = Offset(1.0, 0.0);
+                    var end = Offset.zero;
+                    var curve = Curves.ease;
+
+                    var tween = Tween(begin: begin, end: end);
+                    var curvedAnimation =
+                        CurvedAnimation(parent: animation, curve: curve);
+
+                    return SlideTransition(
+                      position: tween.animate(curvedAnimation),
+                      child: child,
+                    );
+                  },
+                ),
+              ));
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

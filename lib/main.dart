@@ -1,10 +1,13 @@
-import 'package:filsign_learn_app/screens/preview_screen.dart';
+import 'package:filsign_learn_app/screens/user/new_user/benefits_preview_1.dart';
+import 'package:filsign_learn_app/screens/user/new_user/benefits_preview_2.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +18,9 @@ void main() async {
 
   await Firebase.initializeApp();
 
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
