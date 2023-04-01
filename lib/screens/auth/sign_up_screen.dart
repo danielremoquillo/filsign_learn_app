@@ -1,5 +1,7 @@
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
+import 'package:filsign_learn_app/widgets/success_dialog.dart';
+import 'package:filsign_learn_app/widgets/warning_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -20,15 +22,87 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _showPassword = false;
   bool _showConfirmPassword = false;
 
-  void _submitForm() {
+  void _signUpWithEmail() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       // Do something with the form data, such as submitting it to a server
-      _auth.registerWithEmailAndPassword(_email, _password).then((value) =>
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return PageService();
-          })));
+      _auth.registerWithEmailAndPassword(_email, _password).then((value) {
+        if (value == 'success') {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const SuccessDialog(
+                  title: 'SUCCESS',
+                  message: 'Registered successfully.',
+                  buttonName: 'PROCEED',
+                );
+              }).then((value) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 500),
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return const PageService();
+                },
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  var begin = const Offset(1.0, 0.0);
+                  var end = Offset.zero;
+                  var curve = Curves.ease;
+
+                  var tween = Tween(begin: begin, end: end);
+                  var curvedAnimation =
+                      CurvedAnimation(parent: animation, curve: curve);
+
+                  return SlideTransition(
+                    position: tween.animate(curvedAnimation),
+                    child: child,
+                  );
+                },
+              ),
+              (route) => false,
+            );
+          });
+        } else {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return WarningDialog(
+                    title: 'ERROR',
+                    message: value.replaceFirst(RegExp(r'\[.*?\]\s*'), ''));
+              });
+        }
+      });
     }
+  }
+
+  void _signUpWithGoogle() {
+    _auth.signInWithGoogle().then((value) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        PageRouteBuilder(
+          transitionDuration: const Duration(milliseconds: 500),
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return const PageService();
+          },
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            var begin = const Offset(1.0, 0.0);
+            var end = Offset.zero;
+            var curve = Curves.ease;
+
+            var tween = Tween(begin: begin, end: end);
+            var curvedAnimation =
+                CurvedAnimation(parent: animation, curve: curve);
+
+            return SlideTransition(
+              position: tween.animate(curvedAnimation),
+              child: child,
+            );
+          },
+        ),
+        (route) => false,
+      );
+    });
   }
 
   @override
@@ -189,11 +263,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         if (value!.isEmpty) {
                           return 'Please enter your password';
                         }
+                        if (value.length < 6) {
+                          return 'Password length must be 6 and above';
+                        }
 
                         return null;
                       },
                       onSaved: (value) {
                         _password = value!;
+                      },
+                      onChanged: (value) {
+                        _password = value;
                       },
                     ),
                     const SizedBox(
@@ -262,7 +342,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                     // SIGN IN button
                     TextButton(
-                      onPressed: _submitForm,
+                      onPressed: _signUpWithEmail,
                       style: TextButton.styleFrom(
                           backgroundColor: const Color(0xFFFFCD1F),
                           elevation: 0,
@@ -315,9 +395,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 20,
                     ),
 
-                    // Sign in with google
+                    // Sign up with google
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => _signUpWithGoogle(),
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.white,
                           elevation: 0,

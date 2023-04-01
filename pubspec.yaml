@@ -38,6 +38,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   lottie: ^2.3.1
   flutter_custom_clippers: ^2.1.0
+  google_sign_in: ^6.0.2
 
 flutter_native_splash:
   android: true
