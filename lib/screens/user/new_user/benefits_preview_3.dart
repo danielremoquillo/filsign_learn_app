@@ -13,6 +13,23 @@ class BenefitPreview3 extends StatelessWidget {
       body: SafeArea(
           child: Stack(
         children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  alignment: Alignment.centerLeft,
+                  icon: const Icon(
+                    Icons.arrow_back_rounded,
+                    size: 28,
+                    color: Color(0xFFAAAAAA),
+                  )),
+            ),
+          ),
           Stack(
             children: [
               Positioned(

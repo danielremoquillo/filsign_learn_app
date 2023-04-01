@@ -67,9 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           showDialog(
               context: context,
               builder: (context) {
-                return WarningDialog(
-                    title: 'ERROR',
-                    message: value.replaceFirst(RegExp(r'\[.*?\]\s*'), ''));
+                return WarningDialog(title: 'ERROR', message: value);
               });
         }
       });

@@ -1,3 +1,4 @@
+import 'package:filsign_learn_app/screens/auth/reset_password_screen.dart';
 import 'package:filsign_learn_app/screens/user/tabs/home_screen.dart';
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
@@ -67,9 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
           showDialog(
               context: context,
               builder: ((context) {
-                return WarningDialog(
-                    title: 'SIGN IN FAILED',
-                    message: value.replaceFirst(RegExp(r'\[.*?\]\s*'), ''));
+                return WarningDialog(title: 'SIGN IN FAILED', message: value);
               }));
         }
       });
@@ -291,7 +290,40 @@ class _SignInScreenState extends State<SignInScreen> {
                                   style: const TextStyle(
                                       fontSize: 12.0, color: Color(0xFFAAAAAA)),
                                   recognizer: TapGestureRecognizer()
-                                    ..onTap = () {})),
+                                    ..onTap = () {
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          transitionDuration:
+                                              const Duration(milliseconds: 500),
+                                          pageBuilder: (context, animation,
+                                              secondaryAnimation) {
+                                            return const ResetPasswordScreen();
+                                          },
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            var begin = const Offset(1.0, 0.0);
+                                            var end = Offset.zero;
+                                            var curve = Curves.ease;
+
+                                            var tween =
+                                                Tween(begin: begin, end: end);
+                                            var curvedAnimation =
+                                                CurvedAnimation(
+                                                    parent: animation,
+                                                    curve: curve);
+
+                                            return SlideTransition(
+                                              position: tween
+                                                  .animate(curvedAnimation),
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    })),
                         ),
 
                         const SizedBox(

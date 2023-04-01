@@ -82,7 +82,7 @@ class BenefitPreview2 extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.push(
                           context,
                           PageRouteBuilder(
                             transitionDuration:
@@ -107,7 +107,6 @@ class BenefitPreview2 extends StatelessWidget {
                               );
                             },
                           ),
-                          (route) => false,
                         );
                       },
                       child: Row(

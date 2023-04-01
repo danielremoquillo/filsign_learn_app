@@ -33,10 +33,12 @@ class SuccessDialog extends StatelessWidget {
         alignment: WrapAlignment.center,
         runSpacing: 20.0,
         children: [
-          Text(
-            message,
-            style: const TextStyle(
-              color: Colors.grey,
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.grey, fontSize: 13),
             ),
           ),
           Text(

@@ -10,15 +10,12 @@ class AuthService {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        return e.code;
-      } else if (e.code == 'wrong-password') {
-        return e.code;
-      }
+      return e.message.toString();
     }
     return 'success';
   }
 
+  //Sign in with google account
   signInWithGoogle() async {
     final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 
@@ -32,26 +29,30 @@ class AuthService {
     try {
       await _auth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
-      print('tite');
-      if (e.code == 'user-not-found') {
-        return e.code;
-      } else if (e.code == 'wrong-password') {
-        return e.code;
-      }
+      return e.message.toString();
     }
     return 'success';
   }
 
   // Register with email and password
-
   registerWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-    } catch (e) {
-      return (e.toString());
+    } on FirebaseAuthException catch (e) {
+      return e.message.toString();
     }
 
+    return 'success';
+  }
+
+  //reset password
+  resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      return e.message.toString();
+    }
     return 'success';
   }
 
