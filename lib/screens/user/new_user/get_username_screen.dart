@@ -15,6 +15,40 @@ class GetUsernameScreen extends StatefulWidget {
 
 class _GetUsernameScreenState extends State<GetUsernameScreen> {
   AuthService _authService = AuthService();
+  final _formKey = GlobalKey<FormState>();
+
+  late String username;
+
+  _submitUsername() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          transitionDuration: const Duration(milliseconds: 500),
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return GetProfileImageScreen(
+              username: username,
+            );
+          },
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            var begin = const Offset(1.0, 0.0);
+            var end = Offset.zero;
+            var curve = Curves.ease;
+
+            var tween = Tween(begin: begin, end: end);
+            var curvedAnimation =
+                CurvedAnimation(parent: animation, curve: curve);
+
+            return SlideTransition(
+              position: tween.animate(curvedAnimation),
+              child: child,
+            );
+          },
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,42 +85,46 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
                 ),
 
                 //Username Textfield
-                TextFormField(
-                  style:
-                      const TextStyle(fontSize: 14.0, color: Color(0xFFAAAAAA)),
-                  decoration: InputDecoration(
-                    labelText: 'USERNAME',
-                    contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                    labelStyle: const TextStyle(
-                        fontSize: 13.0, color: Color(0xFFC2C2C2)),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xFFFFCD1F)),
-                      borderRadius: BorderRadius.circular(10),
+                Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    style: const TextStyle(
+                        fontSize: 14.0, color: Color(0xFFAAAAAA)),
+                    decoration: InputDecoration(
+                      labelText: 'USERNAME',
+                      contentPadding:
+                          const EdgeInsets.only(left: 20, right: 20),
+                      labelStyle: const TextStyle(
+                          fontSize: 13.0, color: Color(0xFFC2C2C2)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Color(0xFFFFCD1F)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Color(0xFFFFCD1F)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.red),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.red),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      errorStyle: const TextStyle(height: 0.5),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xFFFFCD1F)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.red),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.red),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    errorStyle: const TextStyle(height: 0.5),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your username';
-                    }
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your username';
+                      }
 
-                    return null;
-                  },
-                  onSaved: (value) {
-                    // _email = value!;
-                  },
+                      return null;
+                    },
+                    onSaved: (value) {
+                      username = value!;
+                    },
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -94,32 +132,7 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
 
                 //Enter to save username to current account
                 TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: const Duration(milliseconds: 500),
-                        pageBuilder: (context, animation, secondaryAnimation) {
-                          return const GetProfileImageScreen();
-                        },
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          var begin = const Offset(1.0, 0.0);
-                          var end = Offset.zero;
-                          var curve = Curves.ease;
-
-                          var tween = Tween(begin: begin, end: end);
-                          var curvedAnimation =
-                              CurvedAnimation(parent: animation, curve: curve);
-
-                          return SlideTransition(
-                            position: tween.animate(curvedAnimation),
-                            child: child,
-                          );
-                        },
-                      ),
-                    );
-                  },
+                  onPressed: () => _submitUsername(),
                   style: TextButton.styleFrom(
                       backgroundColor: const Color(0xFFFFCD1F),
                       elevation: 0,

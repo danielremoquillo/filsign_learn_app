@@ -1,17 +1,21 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:filsign_learn_app/screens/user/new_user/benefits_preview_1.dart';
+import 'package:filsign_learn_app/services/db_service.dart';
 import 'package:filsign_learn_app/widgets/confirm_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 class GetProfileImageScreen extends StatefulWidget {
-  const GetProfileImageScreen({Key? key}) : super(key: key);
+  const GetProfileImageScreen({Key? key, required this.username})
+      : super(key: key);
+  final String username;
 
   @override
   _GetProfileImageScreenState createState() => _GetProfileImageScreenState();
 }
 
 class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
+  DBService dbService = DBService();
+
   late String _imagePath;
   final List<String> _imagePaths = [
     'assets/images/display_profile.png',
@@ -36,6 +40,48 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
 
   bool _isSelectedImage(String imagePath) {
     return _imagePath == imagePath;
+  }
+
+  _storeUserDetails() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const ConfirmationDialog(
+          title: 'Confirmation',
+          message: 'Do you want to proceed?',
+        );
+      },
+    ).then((value) {
+      if (value) {
+        dbService.setUserDetails(widget.username, _imagePath).then((snapshot) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 500),
+              pageBuilder: (context, animation, secondaryAnimation) {
+                return const BenefitPreview1();
+              },
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                var begin = 0.0;
+                var end = 2.0;
+                var curve = Curves.ease;
+
+                var tween = Tween(begin: begin, end: end);
+                var curvedAnimation =
+                    CurvedAnimation(parent: animation, curve: curve);
+
+                return FadeTransition(
+                  opacity: tween.animate(curvedAnimation),
+                  child: child,
+                );
+              },
+            ),
+            (route) => false,
+          );
+        });
+      }
+    });
   }
 
   @override
@@ -121,7 +167,9 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
                           spacing: 16.0,
                           children: _imagePaths.map((imagePath) {
                             return GestureDetector(
-                              onTap: () => _setImagePath(imagePath),
+                              onTap: () {
+                                _setImagePath(imagePath);
+                              },
                               child: Stack(
                                 children: [
                                   Container(
@@ -171,50 +219,7 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
 
                     //Enter to save username to current account
                     TextButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const ConfirmationDialog(
-                              title: 'Confirmation',
-                              message: 'Do you want to proceed?',
-                            );
-                          },
-                        ).then((value) {
-                          if (value) {
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              PageRouteBuilder(
-                                transitionDuration:
-                                    const Duration(milliseconds: 500),
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) {
-                                  return const BenefitPreview1();
-                                },
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  var begin = 0.0;
-                                  var end = 2.0;
-                                  var curve = Curves.ease;
-
-                                  var tween = Tween(begin: begin, end: end);
-                                  var curvedAnimation = CurvedAnimation(
-                                      parent: animation, curve: curve);
-
-                                  return FadeTransition(
-                                    opacity: tween.animate(curvedAnimation),
-                                    child: child,
-                                  );
-                                },
-                              ),
-                              (route) => false,
-                            );
-                          } else {
-                            // The user cancelled the action
-                            // Perform any necessary follow-up tasks here
-                          }
-                        });
-                      },
+                      onPressed: () => _storeUserDetails(),
                       style: TextButton.styleFrom(
                           backgroundColor: const Color(0xFFFFCD1F),
                           elevation: 0,

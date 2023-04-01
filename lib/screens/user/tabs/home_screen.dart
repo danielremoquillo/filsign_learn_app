@@ -1,17 +1,14 @@
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
 import 'package:filsign_learn_app/widgets/lesson_tile.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -25,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
           child: Column(
@@ -104,16 +101,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(user.email ?? ''),
-              TextButton(
-                  onPressed: () {
-                    _authService.signOut();
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return const PageService();
-                    }));
-                  },
-                  child: const Text('Sign out')),
             ],
           ),
         ),

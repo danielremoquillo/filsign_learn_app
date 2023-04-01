@@ -2,43 +2,43 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DBService {
-// Create a reference to the Firestore collection
-  final _userCollection = FirebaseFirestore.instance.collection('users');
-
-// Get the ID of the current user
-  final _userId = FirebaseAuth.instance.currentUser?.uid;
-
 // Create a document reference for the current user
-  setUserName(String username) async {
-    final userDocRef = _userCollection.doc(_userId);
-
-    try {
-      await userDocRef.set({'username': username});
-    } catch (error) {
-      print("Error adding data: $error");
-    }
+  setUserDetails(String username, String profileUrl) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .set({
+      'username': username,
+      'profileUrl': profileUrl,
+      'email': FirebaseAuth.instance.currentUser?.email
+    }, SetOptions(merge: true));
   }
 
-  setProfileNumber(int profileNumber) async {
-    final userDocRef = _userCollection.doc(_userId);
+  Future<Map> getUserDetails() async {
+    Map userDetails = {};
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .get()
+        .then((value) => value.data()?.forEach((key, value) {
+              userDetails[key] = (value);
+            }));
 
-    try {
-      await userDocRef.set({'profileNumber': profileNumber});
-    } catch (error) {
-      print("Error adding data: $error");
-    }
+    return userDetails;
   }
 
   isNewUser() async {
-    // Read data from the document
-    await _userCollection
-        .doc(_userId) // Use the user's UID as the document ID
+    bool newUser = true;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
         .get()
         .then((documentSnapshot) {
-      if (!documentSnapshot.exists) {
-        return false;
+      if (documentSnapshot.exists) {
+        newUser = false;
       }
-      return true;
     });
+
+    return newUser;
   }
 }
