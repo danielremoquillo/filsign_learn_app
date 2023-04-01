@@ -152,7 +152,7 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
                     const SizedBox(height: 25.0),
 
                     SizedBox(
-                      width: 250,
+                      width: MediaQuery.of(context).size.width,
                       child: AnimatedTextKit(
                           isRepeatingAnimation: false,
                           animatedTexts: [

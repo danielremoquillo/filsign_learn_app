@@ -33,7 +33,7 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
                 Lottie.asset('assets/lottie/username.json',
                     fit: BoxFit.contain, width: 400, height: 200),
                 SizedBox(
-                  width: 250,
+                  width: MediaQuery.of(context).size.width,
                   child: AnimatedTextKit(
                       isRepeatingAnimation: false,
                       animatedTexts: [
