@@ -94,6 +94,12 @@ flutter:
     - assets/images/playground_selected.png
     - assets/images/profile.png
     - assets/images/profile_selected.png
+    - assets/images/display_profile.png
+    - assets/images/display_profile_1.png
+    - assets/images/display_profile_2.png
+    - assets/images/display_profile_3.png
+    - assets/images/display_profile_4.png
+    - assets/images/display_profile_5.png
     - assets/lottie/username.json
     - assets/lottie/benefit1.json
     - assets/lottie/benefit2.json

@@ -1,4 +1,5 @@
 import 'package:filsign_learn_app/screens/user/new_user/benefits_preview_1.dart';
+import 'package:filsign_learn_app/screens/user/new_user/get_profile_image_screen.dart';
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
                           textAlign: TextAlign.center,
                           textStyle: const TextStyle(
                               fontSize: 16.0, color: Color(0xFFA1A1A1)),
-                          speed: const Duration(milliseconds: 80),
+                          speed: const Duration(milliseconds: 50),
                         ),
                       ]),
                 ),
@@ -95,30 +96,29 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
                 //Enter to save username to current account
                 TextButton(
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.push(
                       context,
                       PageRouteBuilder(
                         transitionDuration: const Duration(milliseconds: 500),
                         pageBuilder: (context, animation, secondaryAnimation) {
-                          return BenefitPreview1();
+                          return const GetProfileImageScreen();
                         },
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
-                          var begin = 0.0;
-                          var end = 1.0;
+                          var begin = const Offset(1.0, 0.0);
+                          var end = Offset.zero;
                           var curve = Curves.ease;
 
                           var tween = Tween(begin: begin, end: end);
                           var curvedAnimation =
                               CurvedAnimation(parent: animation, curve: curve);
 
-                          return FadeTransition(
-                            opacity: tween.animate(curvedAnimation),
+                          return SlideTransition(
+                            position: tween.animate(curvedAnimation),
                             child: child,
                           );
                         },
                       ),
-                      (route) => false,
                     );
                   },
                   style: TextButton.styleFrom(
