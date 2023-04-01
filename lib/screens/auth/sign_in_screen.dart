@@ -168,7 +168,6 @@ class _SignInScreenState extends State<SignInScreen> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 16, color: Color(0xFFAAAAAA)),
-                            maxLines: 2,
                           ),
                         ),
                         const SizedBox(

@@ -42,7 +42,6 @@ class PreviewScreen extends StatelessWidget {
                   'Learn filipino sign language the right way.',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16, color: Color(0xFFAAAAAA)),
-                  maxLines: 2,
                 ),
               ),
 

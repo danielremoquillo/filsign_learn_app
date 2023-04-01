@@ -44,7 +44,7 @@ class BenefitPreview2 extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.25,
+                  height: MediaQuery.of(context).size.height * 0.23,
                 ),
                 Lottie.asset('assets/lottie/benefit2.json',
                     fit: BoxFit.contain, width: 450, height: 225),

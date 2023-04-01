@@ -153,7 +153,6 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
 
                     SizedBox(
                       width: 250,
-                      height: 40,
                       child: AnimatedTextKit(
                           isRepeatingAnimation: false,
                           animatedTexts: [

@@ -34,7 +34,6 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
                     fit: BoxFit.contain, width: 400, height: 200),
                 SizedBox(
                   width: 250,
-                  height: 40,
                   child: AnimatedTextKit(
                       isRepeatingAnimation: false,
                       animatedTexts: [
