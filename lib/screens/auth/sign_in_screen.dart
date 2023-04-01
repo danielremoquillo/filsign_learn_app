@@ -1,4 +1,4 @@
-import 'package:filsign_learn_app/screens/user/home_screen.dart';
+import 'package:filsign_learn_app/screens/user/tabs/home_screen.dart';
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';

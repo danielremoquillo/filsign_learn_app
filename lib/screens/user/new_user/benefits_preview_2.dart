@@ -46,11 +46,8 @@ class BenefitPreview2 extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.25,
                 ),
-                Lottie.network(
-                    'https://assets2.lottiefiles.com/packages/lf20_loGwzbI7N3.json',
-                    fit: BoxFit.contain,
-                    width: 450,
-                    height: 225),
+                Lottie.asset('assets/lottie/benefit2.json',
+                    fit: BoxFit.contain, width: 450, height: 225),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.14,
                 ),

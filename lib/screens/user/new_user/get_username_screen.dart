@@ -29,11 +29,8 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.25,
                 ),
-                Lottie.network(
-                    'https://assets6.lottiefiles.com/packages/lf20_uUiMgkSnl3.json',
-                    fit: BoxFit.contain,
-                    width: 400,
-                    height: 200),
+                Lottie.asset('assets/lottie/username.json',
+                    fit: BoxFit.contain, width: 400, height: 200),
                 SizedBox(
                   width: 250,
                   height: 40,
@@ -139,15 +136,6 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
                         textAlign: TextAlign.center,
                       )),
                 ),
-                TextButton(
-                    onPressed: () {
-                      _authService.signOut();
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return const PageService();
-                      }));
-                    },
-                    child: const Text('Sign out')),
               ],
             ),
           ),

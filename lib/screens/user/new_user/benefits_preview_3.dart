@@ -1,4 +1,5 @@
-import 'package:filsign_learn_app/screens/user/home_screen.dart';
+import 'package:filsign_learn_app/screens/user/main_screen.dart';
+import 'package:filsign_learn_app/screens/user/tabs/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:lottie/lottie.dart';
@@ -46,11 +47,8 @@ class BenefitPreview3 extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.25,
                 ),
-                Lottie.network(
-                    'https://assets7.lottiefiles.com/packages/lf20_g9gACcXlja.json',
-                    fit: BoxFit.contain,
-                    width: 450,
-                    height: 225),
+                Lottie.asset('assets/lottie/benefit3.json',
+                    fit: BoxFit.contain, width: 450, height: 225),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.14,
                 ),
@@ -72,7 +70,7 @@ class BenefitPreview3 extends StatelessWidget {
                       PageRouteBuilder(
                         transitionDuration: const Duration(milliseconds: 500),
                         pageBuilder: (context, animation, secondaryAnimation) {
-                          return HomeScreen();
+                          return MainScreen();
                         },
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {

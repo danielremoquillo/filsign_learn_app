@@ -79,6 +79,25 @@ flutter:
     - assets/images/splash.png
     - assets/images/icon.png
     - assets/images/google_icon.png
+    - assets/images/philippine.png
+    - assets/images/apple.png
+    - assets/images/hat.png
+    - assets/images/monke.png
+    - assets/images/umbrella.png
+    - assets/images/one.png
+    - assets/images/6.png
+    - assets/images/family.png
+    - assets/images/family1.png
+    - assets/images/house.png
+    - assets/images/house_selected.png
+    - assets/images/playground.png
+    - assets/images/playground_selected.png
+    - assets/images/profile.png
+    - assets/images/profile_selected.png
+    - assets/lottie/username.json
+    - assets/lottie/benefit1.json
+    - assets/lottie/benefit2.json
+    - assets/lottie/benefit3.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
