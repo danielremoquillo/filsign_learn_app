@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filsign_learn_app/screens/user/tabs/home_screen.dart';
 import 'package:filsign_learn_app/screens/user/tabs/playground_screen.dart';
 import 'package:filsign_learn_app/screens/user/tabs/profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -14,13 +16,34 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _children = [
     HomeScreen(),
     const PlaygroundScreen(),
-    const ProfileScreen(),
+    ProfileScreen(),
   ];
+
+  Future getDoc() async {
+    bool userExists = false;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .get()
+        .then((documentSnapshot) {
+      if (documentSnapshot.exists) {
+        userExists = true;
+      }
+    });
+
+    return userExists;
+  }
 
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    getDoc();
+    super.initState();
   }
 
   @override
