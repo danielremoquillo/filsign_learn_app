@@ -1,4 +1,3 @@
-import 'package:filsign_learn_app/screens/user/new_user/benefits_preview_1.dart';
 import 'package:filsign_learn_app/screens/user/new_user/get_profile_image_screen.dart';
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
@@ -113,6 +112,9 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter your username';
+                      }
+                      if (value.length > 14) {
+                        return 'Max length is 14 only';
                       }
 
                       return null;

@@ -81,6 +81,18 @@ flutter:
     - assets/images/icon.png
     - assets/images/google_icon.png
     - assets/images/notification.png
+    - assets/images/benefit1.png
+    - assets/images/benefit2.png
+    - assets/images/benefit3.png
+    - assets/images/benefit4.png
+
+
+    # Achivements
+    - assets/images/achievement_first_time.png
+    - assets/images/achievement_open_second_lesson.png
+    - assets/images/achievement_first_taker.png
+    - assets/images/achievement_streak.png
+    - assets/images/achievement_GOAT.png
 
 
     # Active

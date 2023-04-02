@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:filsign_learn_app/screens/user/new_user/benefits_preview_1.dart';
+import 'package:filsign_learn_app/screens/user/new_user/benefits_main_screen.dart';
 import 'package:filsign_learn_app/services/db_service.dart';
+import 'package:filsign_learn_app/services/page_service.dart';
 import 'package:filsign_learn_app/widgets/dialog_widgets/confirm_dialog.dart';
 import 'package:filsign_learn_app/widgets/dialog_widgets/success_dialog.dart';
 import 'package:filsign_learn_app/widgets/main_button.dart';
@@ -70,7 +71,7 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
                 PageRouteBuilder(
                   transitionDuration: const Duration(milliseconds: 500),
                   pageBuilder: (context, animation, secondaryAnimation) {
-                    return const BenefitPreview1();
+                    return const BenefitMainScreen();
                   },
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {

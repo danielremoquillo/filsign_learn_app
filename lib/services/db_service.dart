@@ -27,6 +27,22 @@ class DBService {
     return userDetails;
   }
 
+//   getAllUserData() async {
+//     final data = [];
+//     // Get a reference to the collection
+//     final CollectionReference collectionRef =
+//         FirebaseFirestore.instance.collection('users');
+
+// // Get all the documents in the collection
+//     QuerySnapshot querySnapshot = await collectionRef.get();
+
+// // Iterate over the documents and print the data
+//     querySnapshot.docs.forEach((doc) {
+//       data.add(doc.data());
+//     });
+//     return data;
+//   }
+
   isNewUser() async {
     bool newUser = true;
     await FirebaseFirestore.instance
