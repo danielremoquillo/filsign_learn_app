@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class LessonTile extends StatefulWidget {
   final Color backgroundColor;
   final String lessonImageSrc;
+  final String lessonImageSrcLocked;
   final String lessonTitle;
   final String lessonProgress;
   final double progressValue;
@@ -16,7 +17,8 @@ class LessonTile extends StatefulWidget {
       required this.lessonTitle,
       required this.lessonProgress,
       this.progressValue = 0.0,
-      this.isAvailable = false});
+      this.isAvailable = false,
+      required this.lessonImageSrcLocked});
 
   @override
   State<LessonTile> createState() => _LessonTileState();
@@ -60,11 +62,20 @@ class _LessonTileState extends State<LessonTile>
                       child: child,
                     );
                   },
-                  child: CircleAvatar(
-                    radius: 40,
-                    backgroundColor: widget.isAvailable
-                        ? widget.backgroundColor
-                        : const Color(0xFFBCBCBC),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 1.5,
+                        color: widget.isAvailable
+                            ? Colors.black
+                            : const Color.fromARGB(255, 167, 167, 167),
+                      ),
+                      color: widget.isAvailable
+                          ? widget.backgroundColor
+                          : const Color(0xFFBCBCBC),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: widget.isAvailable
@@ -76,7 +87,9 @@ class _LessonTileState extends State<LessonTile>
                                 0.2126, 0.7152, 0.0722, 0, 0, // B
                                 0, 0, 0, 0.2, 0, // A
                               ]),
-                              child: Image.asset(widget.lessonImageSrc),
+                              child: widget.isAvailable
+                                  ? Image.asset(widget.lessonImageSrc)
+                                  : Image.asset(widget.lessonImageSrcLocked),
                             ),
                     ),
                   ),

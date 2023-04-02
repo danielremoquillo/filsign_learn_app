@@ -2,6 +2,7 @@ import 'package:filsign_learn_app/screens/user/new_user/benefits_preview_1.dart'
 import 'package:filsign_learn_app/screens/user/new_user/get_profile_image_screen.dart';
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
+import 'package:filsign_learn_app/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:lottie/lottie.dart';
@@ -64,21 +65,16 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.25,
                 ),
-                Lottie.asset('assets/lottie/username.json',
-                    fit: BoxFit.contain, width: 400, height: 200),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: AnimatedTextKit(
-                      isRepeatingAnimation: false,
-                      animatedTexts: [
-                        TyperAnimatedText(
-                          "Hi there, I’m Milio! Nice to meet you! Can you tell me your name?",
-                          textAlign: TextAlign.center,
-                          textStyle: const TextStyle(
-                              fontSize: 16.0, color: Color(0xFFA1A1A1)),
-                          speed: const Duration(milliseconds: 50),
-                        ),
-                      ]),
+                Image.asset('assets/images/username_illustration.png',
+                    fit: BoxFit.contain, width: 300, height: 150),
+
+                const SizedBox(
+                  height: 30,
+                ),
+                const Text(
+                  "Hi there, Nice to meet you! Can you tell me your name?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16.0, color: Color(0xFFA1A1A1)),
                 ),
                 const SizedBox(
                   height: 30,
@@ -132,21 +128,17 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
 
                 //Enter to save username to current account
                 TextButton(
-                  onPressed: () => _submitUsername(),
+                  onPressed: () {
+                    _submitUsername();
+                  },
                   style: TextButton.styleFrom(
                       backgroundColor: const Color(0xFFFFCD1F),
                       elevation: 0,
                       shape: const RoundedRectangleBorder(
+                          side: BorderSide(width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(16)))),
-                  child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: const Text(
-                        'ENTER',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, color: Colors.white),
-                        textAlign: TextAlign.center,
-                      )),
+                  child: const MainButtonChild(
+                      buttonText: 'ENTER', buttonTextColor: Colors.white),
                 ),
               ],
             ),

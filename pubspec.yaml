@@ -80,7 +80,10 @@ flutter:
     - assets/images/splash.png
     - assets/images/icon.png
     - assets/images/google_icon.png
-    - assets/images/philippine.png
+    - assets/images/notification.png
+
+
+    # Active
     - assets/images/apple.png
     - assets/images/hat.png
     - assets/images/monke.png
@@ -95,12 +98,34 @@ flutter:
     - assets/images/playground_selected.png
     - assets/images/profile.png
     - assets/images/profile_selected.png
+
+    # Not Active
+    - assets/images/apple_not_active.png
+    - assets/images/hat_not_active.png
+    - assets/images/monke_not_active.png
+    - assets/images/umbrella_not_active.png
+    - assets/images/one_not_active.png
+    - assets/images/6_not_active.png
+    - assets/images/family_not_active.png
+    - assets/images/family1_not_active.png
+
+    # Profiles
     - assets/images/display_profile.png
     - assets/images/display_profile_1.png
     - assets/images/display_profile_2.png
     - assets/images/display_profile_3.png
     - assets/images/display_profile_4.png
     - assets/images/display_profile_5.png
+
+    # Dialogs Icon
+    - assets/images/warning_dialog.png
+    - assets/images/success_dialog.png
+    - assets/images/confirmation_dialog.png
+
+    # Illustrations
+    - assets/images/username_illustration.png
+
+    # Lottie Files
     - assets/lottie/username.json
     - assets/lottie/benefit1.json
     - assets/lottie/benefit2.json

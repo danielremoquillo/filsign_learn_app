@@ -1,7 +1,8 @@
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
-import 'package:filsign_learn_app/widgets/success_dialog.dart';
-import 'package:filsign_learn_app/widgets/warning_dialog.dart';
+import 'package:filsign_learn_app/widgets/dialog_widgets/success_dialog.dart';
+import 'package:filsign_learn_app/widgets/dialog_widgets/warning_dialog.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 return const SuccessDialog(
                   title: 'SUCCESS',
                   message: 'Registered successfully.',
-                  buttonName: 'PROCEED',
+                  buttonText: 'PROCEED',
                 );
               }).then((value) {
             Navigator.pushAndRemoveUntil(
@@ -67,7 +68,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
           showDialog(
               context: context,
               builder: (context) {
-                return WarningDialog(title: 'ERROR', message: value);
+                return WarningDialog(
+                  title: 'ERROR',
+                  message: value,
+                  cancelButton: false,
+                  buttonText: 'OKAY',
+                );
               });
         }
       });

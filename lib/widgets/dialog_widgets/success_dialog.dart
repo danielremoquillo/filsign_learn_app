@@ -1,26 +1,26 @@
+import 'package:filsign_learn_app/widgets/dialog_widgets/dialog_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class SuccessDialog extends StatelessWidget {
   final String title;
   final String message;
-  final String? note;
-  final String buttonName;
+  final String buttonText;
 
   const SuccessDialog({
     Key? key,
     required this.title,
     required this.message,
-    this.note,
-    required this.buttonName,
+    required this.buttonText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      icon: Lottie.asset('assets/lottie/benefit1.json',
-          fit: BoxFit.contain, width: 400, height: 200),
+      icon: Image.asset('assets/images/success_dialog.png',
+          fit: BoxFit.contain, width: 200, height: 100),
       shape: const RoundedRectangleBorder(
+          side: BorderSide(width: 2.0),
           borderRadius: BorderRadius.all(Radius.circular(16.0))),
       actionsAlignment: MainAxisAlignment.center,
       contentPadding:
@@ -41,10 +41,6 @@ class SuccessDialog extends StatelessWidget {
               style: const TextStyle(color: Colors.grey, fontSize: 13),
             ),
           ),
-          Text(
-            note ?? '',
-            style: const TextStyle(color: Colors.grey, fontSize: 14),
-          ),
         ],
       ),
       actions: [
@@ -53,28 +49,11 @@ class SuccessDialog extends StatelessWidget {
               top: 0, bottom: 18.0, left: 18.0, right: 18.0),
           child: Column(
             children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xFF6cc070),
-                    elevation: 0,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16)))),
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      buttonName,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500, color: Colors.white),
-                      textAlign: TextAlign.center,
-                    )),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+              DialogButton(
+                  buttonBackgroundColor: const Color(0xFF01CF8E),
+                  buttonText: buttonText,
+                  buttonTextColor: Colors.white,
+                  popValue: true),
             ],
           ),
         ),

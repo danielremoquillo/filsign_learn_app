@@ -20,7 +20,7 @@ class ProgressPainter extends CustomPainter {
     final paint = Paint()
       ..color = progressColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10;
+      ..strokeWidth = 13;
     canvas.drawArc(rect, startAngle, sweepAngle, useCenter, paint);
   }
 

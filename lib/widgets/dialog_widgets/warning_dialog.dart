@@ -1,24 +1,28 @@
+import 'package:filsign_learn_app/widgets/dialog_widgets/dialog_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class WarningDialog extends StatelessWidget {
   final String title;
   final String message;
-  final String? note;
+  final String buttonText;
+  final bool cancelButton;
 
   const WarningDialog({
     Key? key,
     required this.title,
     required this.message,
-    this.note,
+    required this.cancelButton,
+    required this.buttonText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      icon: Lottie.asset('assets/lottie/benefit1.json',
-          fit: BoxFit.contain, width: 400, height: 200),
+      icon: Image.asset('assets/images/warning_dialog.png',
+          fit: BoxFit.contain, width: 200, height: 100),
       shape: const RoundedRectangleBorder(
+          side: BorderSide(width: 2.0),
           borderRadius: BorderRadius.all(Radius.circular(16.0))),
       actionsAlignment: MainAxisAlignment.center,
       contentPadding:
@@ -39,10 +43,6 @@ class WarningDialog extends StatelessWidget {
               style: const TextStyle(color: Colors.grey, fontSize: 13),
             ),
           ),
-          Text(
-            note ?? '',
-            style: const TextStyle(color: Colors.grey, fontSize: 11),
-          ),
         ],
       ),
       actions: [
@@ -51,28 +51,22 @@ class WarningDialog extends StatelessWidget {
               top: 0, bottom: 18.0, left: 18.0, right: 18.0),
           child: Column(
             children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xFFDF2E38),
-                    elevation: 0,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16)))),
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: const Text(
-                      'OKAY',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500, color: Colors.white),
-                      textAlign: TextAlign.center,
-                    )),
+              DialogButton(
+                  buttonBackgroundColor: const Color(0xFFF6334C),
+                  buttonText: buttonText,
+                  buttonTextColor: Colors.white,
+                  popValue: true),
+              SizedBox(
+                height: cancelButton ? 10 : 0,
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              cancelButton
+                  ? const DialogButton(
+                      buttonBackgroundColor: Colors.white,
+                      buttonText: 'CANCEL',
+                      buttonTextColor: Color(0xFFF6334C),
+                      borderWidth: 0.5,
+                      popValue: false)
+                  : Container(),
             ],
           ),
         ),

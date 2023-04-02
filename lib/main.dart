@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
           primarySwatch: Colors.orange,
           fontFamily: 'Fredoka'),
-      home: PageService(),
+      home: const PageService(),
     );
   }
 }

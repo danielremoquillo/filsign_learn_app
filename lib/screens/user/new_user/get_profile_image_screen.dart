@@ -1,7 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:filsign_learn_app/screens/user/new_user/benefits_preview_1.dart';
 import 'package:filsign_learn_app/services/db_service.dart';
-import 'package:filsign_learn_app/widgets/confirm_dialog.dart';
+import 'package:filsign_learn_app/widgets/dialog_widgets/confirm_dialog.dart';
+import 'package:filsign_learn_app/widgets/dialog_widgets/success_dialog.dart';
+import 'package:filsign_learn_app/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 
 class GetProfileImageScreen extends StatefulWidget {
@@ -49,36 +51,45 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
         return const ConfirmationDialog(
           title: 'Confirmation',
           message: 'Do you want to proceed?',
+          buttonText: 'PROCEED',
         );
       },
     ).then((value) {
       if (value) {
         dbService.setUserDetails(widget.username, _imagePath).then((snapshot) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 500),
-              pageBuilder: (context, animation, secondaryAnimation) {
-                return const BenefitPreview1();
-              },
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                var begin = 0.0;
-                var end = 2.0;
-                var curve = Curves.ease;
-
-                var tween = Tween(begin: begin, end: end);
-                var curvedAnimation =
-                    CurvedAnimation(parent: animation, curve: curve);
-
-                return FadeTransition(
-                  opacity: tween.animate(curvedAnimation),
-                  child: child,
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const SuccessDialog(
+                  title: 'SUCCESS',
+                  message: 'Saved successfully.',
+                  buttonText: 'PROCEED',
                 );
-              },
-            ),
-            (route) => false,
-          );
+              }).then((value) => Navigator.pushAndRemoveUntil(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 500),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return const BenefitPreview1();
+                  },
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    var begin = 0.0;
+                    var end = 2.0;
+                    var curve = Curves.ease;
+
+                    var tween = Tween(begin: begin, end: end);
+                    var curvedAnimation =
+                        CurvedAnimation(parent: animation, curve: curve);
+
+                    return FadeTransition(
+                      opacity: tween.animate(curvedAnimation),
+                      child: child,
+                    );
+                  },
+                ),
+                (route) => false,
+              ));
         });
       }
     });
@@ -125,7 +136,7 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                   color: _isSelectedImage(_imagePath)
-                                      ? const Color(0xFFFFCD1F)
+                                      ? const Color(0xFF01CF8E)
                                       : Colors.transparent,
                                   width: 5.0,
                                 ),
@@ -146,7 +157,7 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
                                   shape: BoxShape.circle,
                                   color: Colors.white,
                                   border: Border.all(
-                                    color: const Color(0xFFFFCD1F),
+                                    color: const Color(0xFF01CF8E),
                                     width: 3.0,
                                   ),
                                 ),
@@ -154,7 +165,7 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
                                     ? const Icon(
                                         Icons.check,
                                         size: 20.0,
-                                        color: Color(0xFFFFCD1F),
+                                        color: Color(0xFF01CF8E),
                                       )
                                     : const Icon(Icons.check,
                                         size: 20.0, color: Colors.transparent),
@@ -171,6 +182,7 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
                                 _setImagePath(imagePath);
                               },
                               child: Stack(
+                                alignment: Alignment.center,
                                 children: [
                                   Container(
                                     margin: const EdgeInsets.only(bottom: 10),
@@ -178,13 +190,13 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                         color: _isSelectedImage(imagePath)
-                                            ? const Color(0xFFFFCD1F)
-                                            : const Color(0xFFE7D6D6),
-                                        width: 2.0,
+                                            ? const Color(0xFF01CF8E)
+                                            : Colors.black,
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: CircleAvatar(
-                                      radius: 25.0,
+                                      radius: 30.0,
                                       backgroundColor: Colors.transparent,
                                       foregroundColor: Colors.transparent,
                                       backgroundImage: AssetImage(imagePath),
@@ -199,19 +211,11 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
                     ),
                     const SizedBox(height: 25.0),
 
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: AnimatedTextKit(
-                          isRepeatingAnimation: false,
-                          animatedTexts: [
-                            TyperAnimatedText(
-                              "Pick one profile picture that suits you the best!",
-                              textAlign: TextAlign.center,
-                              textStyle: const TextStyle(
-                                  fontSize: 16.0, color: Color(0xFFA1A1A1)),
-                              speed: const Duration(milliseconds: 50),
-                            ),
-                          ]),
+                    const Text(
+                      "Pick one profile picture that suits you the best!",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 16.0, color: Color(0xFFA1A1A1)),
                     ),
                     const SizedBox(
                       height: 30,
@@ -219,23 +223,18 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
 
                     //Enter to save username to current account
                     TextButton(
-                      onPressed: () => _storeUserDetails(),
+                      onPressed: () {
+                        _storeUserDetails();
+                      },
                       style: TextButton.styleFrom(
                           backgroundColor: const Color(0xFFFFCD1F),
                           elevation: 0,
                           shape: const RoundedRectangleBorder(
+                              side: BorderSide(width: 1),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(16)))),
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: const Text(
-                            'PICK',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                            textAlign: TextAlign.center,
-                          )),
+                      child: const MainButtonChild(
+                          buttonText: 'PICK', buttonTextColor: Colors.white),
                     ),
                   ],
                 ),

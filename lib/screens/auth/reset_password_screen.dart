@@ -1,9 +1,9 @@
 import 'package:filsign_learn_app/screens/user/tabs/home_screen.dart';
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
-import 'package:filsign_learn_app/widgets/confirm_dialog.dart';
-import 'package:filsign_learn_app/widgets/success_dialog.dart';
-import 'package:filsign_learn_app/widgets/warning_dialog.dart';
+import 'package:filsign_learn_app/widgets/dialog_widgets/success_dialog.dart';
+import 'package:filsign_learn_app/widgets/dialog_widgets/warning_dialog.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               return const SuccessDialog(
                 title: 'SUCCESS',
                 message: 'Password reset link sent. Check your inbox.',
-                buttonName: 'CONFIRM',
+                buttonText: 'CONFIRM',
               );
             }),
           );
@@ -43,7 +43,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           showDialog(
             context: context,
             builder: ((context) {
-              return WarningDialog(title: 'RESET FAILED', message: value);
+              return WarningDialog(
+                title: 'RESET FAILED',
+                message: value,
+                cancelButton: false,
+                buttonText: 'OKAY',
+              );
             }),
           );
         }
