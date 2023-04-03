@@ -1,3 +1,5 @@
+import 'package:filsign_learn_app/screens/lessons/alphabet_1/alphabet_1_lesson_1_main_screen.dart';
+import 'package:filsign_learn_app/screens/lessons/alphabet_1/alphabet_1_lesson_screen.dart';
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
 import 'package:filsign_learn_app/widgets/dialog_widgets/warning_dialog.dart';
@@ -78,14 +80,15 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 //Alphabets I
-                const LessonTile(
+                LessonTile(
                   backgroundColor: Color(0xFFFF7B94),
                   lessonImageSrc: 'assets/images/apple.png',
                   lessonImageSrcLocked: 'assets/images/apple_not_active.png',
-                  lessonProgress: '0 / 7',
+                  lessonProgress: '0 / 8',
                   lessonTitle: 'Alphabets I',
-                  progressValue: 0.15,
+                  progressValue: 0.06,
                   isAvailable: true,
+                  pageRoute: Alphabet1LessonScreen(),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

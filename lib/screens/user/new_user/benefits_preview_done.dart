@@ -35,7 +35,7 @@ class BenefitPreviewDone extends StatelessWidget {
               height: 20,
             ),
             const Text(
-              "We hope you to enjoy our app. Thank you!",
+              "We hope you enjoy our app. Thank you!",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0, color: Colors.grey),
             ),

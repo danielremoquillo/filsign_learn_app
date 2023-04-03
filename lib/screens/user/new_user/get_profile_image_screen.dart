@@ -69,7 +69,7 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
               }).then((value) => Navigator.pushAndRemoveUntil(
                 context,
                 PageRouteBuilder(
-                  transitionDuration: const Duration(milliseconds: 500),
+                  transitionDuration: const Duration(milliseconds: 1000),
                   pageBuilder: (context, animation, secondaryAnimation) {
                     return const BenefitMainScreen();
                   },

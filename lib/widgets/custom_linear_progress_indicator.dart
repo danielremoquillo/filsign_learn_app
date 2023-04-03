@@ -32,7 +32,7 @@ class _RoundedInnerLinearProgressIndicatorState
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 400),
     );
     _animation = Tween<double>(
       begin: 0.0,
