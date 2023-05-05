@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:filsign_learn_app/screens/user/new_user/get_profile_image_screen.dart';
 import 'package:filsign_learn_app/services/auth_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
@@ -7,7 +8,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:lottie/lottie.dart';
 
 class GetUsernameScreen extends StatefulWidget {
-  const GetUsernameScreen({super.key});
+  const GetUsernameScreen({super.key, required this.cameras});
+  final List<CameraDescription> cameras;
 
   @override
   State<GetUsernameScreen> createState() => _GetUsernameScreenState();
@@ -28,8 +30,7 @@ class _GetUsernameScreenState extends State<GetUsernameScreen> {
           transitionDuration: const Duration(milliseconds: 500),
           pageBuilder: (context, animation, secondaryAnimation) {
             return GetProfileImageScreen(
-              username: username,
-            );
+                username: username, cameras: widget.cameras);
           },
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             var begin = const Offset(1.0, 0.0);

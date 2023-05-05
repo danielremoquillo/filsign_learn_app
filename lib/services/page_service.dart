@@ -1,3 +1,4 @@
+import 'package:filsign_learn_app/main.dart';
 import 'package:filsign_learn_app/screens/auth/preview_screen.dart';
 import 'package:filsign_learn_app/screens/user/main_screen.dart';
 import 'package:filsign_learn_app/screens/user/tabs/home_screen.dart';
@@ -5,9 +6,12 @@ import 'package:filsign_learn_app/screens/user/new_user/get_username_screen.dart
 import 'package:filsign_learn_app/services/db_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 
 class PageService extends StatefulWidget {
-  const PageService({super.key});
+  const PageService({super.key, required this.cameras});
+
+  final List<CameraDescription> cameras;
 
   @override
   State<PageService> createState() => _PageServiceState();
@@ -35,12 +39,16 @@ class _PageServiceState extends State<PageService> {
           builder: (context, snapshots) {
             if (snapshots.hasData) {
               if (isNewUser) {
-                return const GetUsernameScreen();
+                return GetUsernameScreen(cameras: widget.cameras);
               } else {
-                return MainScreen();
+                return MainScreen(
+                  cameras: [],
+                );
               }
             } else {
-              return const PreviewScreen();
+              return PreviewScreen(
+                cameras: cameras,
+              );
             }
           }),
     );

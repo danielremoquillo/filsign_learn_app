@@ -19,10 +19,10 @@ class ProfileScreen extends StatelessWidget {
           width: 40,
           height: 80,
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
-        Text("Beginner's Contract"),
+        const Text("Beginner's Contract"),
       ],
     ),
     Row(
@@ -32,10 +32,10 @@ class ProfileScreen extends StatelessWidget {
           width: 40,
           height: 80,
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
-        Text("Beginner's Trophy"),
+        const Text("Beginner's Trophy"),
       ],
     ),
     Row(
@@ -45,10 +45,10 @@ class ProfileScreen extends StatelessWidget {
           width: 40,
           height: 80,
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
-        Text("First Taker"),
+        const Text("First Taker"),
       ],
     ),
     Row(
@@ -58,10 +58,10 @@ class ProfileScreen extends StatelessWidget {
           width: 40,
           height: 80,
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
-        Text("True Gem"),
+        const Text("True Gem"),
       ],
     ),
     Row(
@@ -71,10 +71,10 @@ class ProfileScreen extends StatelessWidget {
           width: 40,
           height: 80,
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
-        Text("G.O.A.T"),
+        const Text("G.O.A.T"),
       ],
     ),
   ];
@@ -115,7 +115,9 @@ class ProfileScreen extends StatelessWidget {
                     AuthService().signOut();
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
-                      return const PageService();
+                      return PageService(
+                        cameras: [],
+                      );
                     }));
                   }
                 });
@@ -163,82 +165,76 @@ class ProfileScreen extends StatelessWidget {
           child: FutureBuilder(
             future: dbService.getUserDetails(),
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 28.0, vertical: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.25,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border:
-                                  Border.all(width: 1.5, color: Colors.black),
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 28.0, vertical: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(width: 1.5, color: Colors.black),
+                          ),
+                          child: const CircleAvatar(
+                              maxRadius: 40,
+                              minRadius: 20,
+                              backgroundImage: AssetImage(
+                                  'assets/images/display_profile_1.png')),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            //Username
+                            Text(
+                              'Test',
+                              style: TextStyle(
+                                  fontSize: 19,
+                                  color: Color(0xFFFFCD1F),
+                                  fontWeight: FontWeight.w500),
                             ),
-                            child: CircleAvatar(
-                                maxRadius: 40,
-                                minRadius: 20,
-                                backgroundImage:
-                                    AssetImage(snapshot.data!['profileUrl'])),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              //Username
-                              Text(
-                                snapshot.data!['username'],
-                                style: const TextStyle(
-                                    fontSize: 19,
-                                    color: Color(0xFFFFCD1F),
-                                    fontWeight: FontWeight.w500),
-                              ),
 
-                              //Email
-                              Text(
-                                snapshot.data!['email'],
-                                style:
-                                    const TextStyle(color: Color(0xFFA1A1A1)),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const Text(
-                        'Achievements',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                            //Email
+                            Text(
+                              'test@gmail.com',
+                              style: TextStyle(color: Color(0xFFA1A1A1)),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      'Achievements',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
 
-                      //Puts all of the widgets on the achievement list
-                      ..._achievements,
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        'Friends',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                );
-              } else {
-                return Container();
-              }
+                    //Puts all of the widgets on the achievement list
+                    ..._achievements,
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      'Friends',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ),

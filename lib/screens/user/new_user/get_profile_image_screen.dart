@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:camera/camera.dart';
 import 'package:filsign_learn_app/screens/user/new_user/benefits_main_screen.dart';
 import 'package:filsign_learn_app/services/db_service.dart';
 import 'package:filsign_learn_app/services/page_service.dart';
@@ -8,9 +9,11 @@ import 'package:filsign_learn_app/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 
 class GetProfileImageScreen extends StatefulWidget {
-  const GetProfileImageScreen({Key? key, required this.username})
+  const GetProfileImageScreen(
+      {Key? key, required this.username, required this.cameras})
       : super(key: key);
   final String username;
+  final List<CameraDescription> cameras;
 
   @override
   _GetProfileImageScreenState createState() => _GetProfileImageScreenState();
@@ -57,41 +60,39 @@ class _GetProfileImageScreenState extends State<GetProfileImageScreen> {
       },
     ).then((value) {
       if (value) {
-        dbService.setUserDetails(widget.username, _imagePath).then((snapshot) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const SuccessDialog(
-                  title: 'SUCCESS',
-                  message: 'Saved successfully.',
-                  buttonText: 'PROCEED',
-                );
-              }).then((value) => Navigator.pushAndRemoveUntil(
-                context,
-                PageRouteBuilder(
-                  transitionDuration: const Duration(milliseconds: 1000),
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return const BenefitMainScreen();
-                  },
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    var begin = 0.0;
-                    var end = 2.0;
-                    var curve = Curves.ease;
+        showDialog(
+            context: context,
+            builder: (context) {
+              return const SuccessDialog(
+                title: 'SUCCESS',
+                message: 'Saved successfully.',
+                buttonText: 'PROCEED',
+              );
+            }).then((value) => Navigator.pushAndRemoveUntil(
+              context,
+              PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 1000),
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return const BenefitMainScreen();
+                },
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  var begin = 0.0;
+                  var end = 2.0;
+                  var curve = Curves.ease;
 
-                    var tween = Tween(begin: begin, end: end);
-                    var curvedAnimation =
-                        CurvedAnimation(parent: animation, curve: curve);
+                  var tween = Tween(begin: begin, end: end);
+                  var curvedAnimation =
+                      CurvedAnimation(parent: animation, curve: curve);
 
-                    return FadeTransition(
-                      opacity: tween.animate(curvedAnimation),
-                      child: child,
-                    );
-                  },
-                ),
-                (route) => false,
-              ));
-        });
+                  return FadeTransition(
+                    opacity: tween.animate(curvedAnimation),
+                    child: child,
+                  );
+                },
+              ),
+              (route) => false,
+            ));
       }
     });
   }

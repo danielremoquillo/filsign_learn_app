@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filsign_learn_app/screens/user/tabs/home_screen.dart';
 import 'package:filsign_learn_app/screens/user/tabs/playground_screen.dart';
@@ -5,7 +6,16 @@ import 'package:filsign_learn_app/screens/user/tabs/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
+
 class MainScreen extends StatefulWidget {
+  const MainScreen({
+    Key? key,
+    required this.cameras,
+  }) : super(key: key);
+
+  final List<CameraDescription> cameras;
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -15,7 +25,9 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _children = [
     HomeScreen(),
-    const PlaygroundScreen(),
+    PlaygroundScreen(
+      cameras: cameras,
+    ),
     ProfileScreen(),
   ];
 

@@ -1,7 +1,10 @@
+import 'package:camera/camera.dart';
 import 'package:filsign_learn_app/screens/auth/sign_in_screen.dart';
 import 'package:filsign_learn_app/screens/auth/sign_up_screen.dart';
 import 'package:filsign_learn_app/widgets/custom_will_pop_scope.dart';
 import 'package:filsign_learn_app/widgets/dialog_widgets/warning_dialog.dart';
+import 'package:filsign_learn_app/screens/user/new_user/get_username_screen.dart';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -9,7 +12,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 
 class PreviewScreen extends StatelessWidget {
-  const PreviewScreen({super.key});
+  const PreviewScreen({super.key, required this.cameras});
+  final List<CameraDescription> cameras;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,7 @@ class PreviewScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.25,
                 ),
 
                 // Preview Page Logo
@@ -156,6 +160,56 @@ class PreviewScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: const Text(
                         'ALREADY HAVE AN ACCOUNT',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFFFFCD1F)),
+                        textAlign: TextAlign.center,
+                      )),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                // Already have an account button
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: const Duration(milliseconds: 500),
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return GetUsernameScreen(
+                            cameras: cameras,
+                          );
+                        },
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          var begin = 0.0;
+                          var end = 1.0;
+                          var curve = Curves.ease;
+
+                          var tween = Tween(begin: begin, end: end);
+                          var curvedAnimation =
+                              CurvedAnimation(parent: animation, curve: curve);
+
+                          return FadeTransition(
+                            opacity: tween.animate(curvedAnimation),
+                            child: child,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      elevation: 0,
+                      side: const BorderSide(color: Color(0xFFE7D6D6)),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16)))),
+                  child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: const Text(
+                        'GUEST',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Color(0xFFFFCD1F)),

@@ -49,7 +49,9 @@ class BenefitPreviewDone extends StatelessWidget {
                   PageRouteBuilder(
                     transitionDuration: const Duration(milliseconds: 500),
                     pageBuilder: (context, animation, secondaryAnimation) {
-                      return const PageService();
+                      return MainScreen(
+                        cameras: [],
+                      );
                     },
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
