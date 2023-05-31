@@ -11,10 +11,7 @@ import '../../main.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({
     Key? key,
-    required this.cameras,
   }) : super(key: key);
-
-  final List<CameraDescription> cameras;
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -25,9 +22,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _children = [
     HomeScreen(),
-    PlaygroundScreen(
-      cameras: cameras,
-    ),
+    const PlaygroundScreen(),
     ProfileScreen(),
   ];
 

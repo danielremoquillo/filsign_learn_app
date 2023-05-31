@@ -9,11 +9,9 @@ import 'package:filsign_learn_app/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 
 class GetProfileImageScreen extends StatefulWidget {
-  const GetProfileImageScreen(
-      {Key? key, required this.username, required this.cameras})
+  const GetProfileImageScreen({Key? key, required this.username})
       : super(key: key);
   final String username;
-  final List<CameraDescription> cameras;
 
   @override
   _GetProfileImageScreenState createState() => _GetProfileImageScreenState();

@@ -43,9 +43,7 @@ class _SignInScreenState extends State<SignInScreen> {
             PageRouteBuilder(
               transitionDuration: const Duration(milliseconds: 500),
               pageBuilder: (context, animation, secondaryAnimation) {
-                return PageService(
-                  cameras: [],
-                );
+                return PageService();
               },
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
@@ -88,9 +86,7 @@ class _SignInScreenState extends State<SignInScreen> {
         PageRouteBuilder(
           transitionDuration: const Duration(milliseconds: 500),
           pageBuilder: (context, animation, secondaryAnimation) {
-            return PageService(
-              cameras: [],
-            );
+            return PageService();
           },
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             var begin = const Offset(1.0, 0.0);

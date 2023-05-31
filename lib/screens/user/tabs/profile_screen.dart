@@ -115,9 +115,7 @@ class ProfileScreen extends StatelessWidget {
                     AuthService().signOut();
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
-                      return PageService(
-                        cameras: [],
-                      );
+                      return PageService();
                     }));
                   }
                 });

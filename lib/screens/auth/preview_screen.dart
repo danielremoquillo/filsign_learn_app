@@ -12,8 +12,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 
 class PreviewScreen extends StatelessWidget {
-  const PreviewScreen({super.key, required this.cameras});
-  final List<CameraDescription> cameras;
+  const PreviewScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -177,9 +178,7 @@ class PreviewScreen extends StatelessWidget {
                       PageRouteBuilder(
                         transitionDuration: const Duration(milliseconds: 500),
                         pageBuilder: (context, animation, secondaryAnimation) {
-                          return GetUsernameScreen(
-                            cameras: cameras,
-                          );
+                          return GetUsernameScreen();
                         },
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {

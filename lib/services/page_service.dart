@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
 class PageService extends StatefulWidget {
-  const PageService({super.key, required this.cameras});
-
-  final List<CameraDescription> cameras;
+  const PageService({
+    super.key,
+  });
 
   @override
   State<PageService> createState() => _PageServiceState();
@@ -39,16 +39,12 @@ class _PageServiceState extends State<PageService> {
           builder: (context, snapshots) {
             if (snapshots.hasData) {
               if (isNewUser) {
-                return GetUsernameScreen(cameras: widget.cameras);
+                return GetUsernameScreen();
               } else {
-                return MainScreen(
-                  cameras: [],
-                );
+                return MainScreen();
               }
             } else {
-              return PreviewScreen(
-                cameras: cameras,
-              );
+              return PreviewScreen();
             }
           }),
     );

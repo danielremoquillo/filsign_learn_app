@@ -20,7 +20,13 @@ dependencies:
   lottie: ^2.3.1
   flutter_custom_clippers: ^2.1.0
   google_sign_in: ^6.0.2
-  camera: ^0.10.5
+  camera: ^0.9.4
+  yuvtransform: ^0.0.2
+  web_socket_channel: ^2.4.0
+
+
+
+
 # Splash Screen
 flutter_native_splash:
   android: true
